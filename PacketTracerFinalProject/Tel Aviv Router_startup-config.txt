@@ -1,0 +1,101 @@
+!
+version 12.2
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Router
+!
+!
+!
+!
+ip dhcp excluded-address 233.1.1.1 223.1.1.20
+!
+ip dhcp pool TELAVIV
+ network 223.1.1.0 255.255.255.0
+ default-router 223.1.1.1
+ dns-server 223.1.4.222
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet4/0
+ ip address 223.1.1.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet5/0
+ description wantToLondon
+ bandwidth 100000
+ ip address 200.1.1.1 255.255.255.252
+!
+interface GigabitEthernet6/0
+ description WAN_TO_BARCELONA
+ bandwidth 20000
+ ip address 200.1.1.18 255.255.255.252
+!
+interface GigabitEthernet7/0
+ description WAN_TO_ROME
+ bandwidth 50000
+ ip address 200.1.1.21 255.255.255.252
+!
+interface GigabitEthernet8/0
+ description WAN_TO_CAIRO
+ bandwidth 25000
+ ip address 200.1.1.37 255.255.255.252
+!
+interface GigabitEthernet9/0
+ no ip address
+!
+router eigrp 100
+ network 223.10.0.0
+ network 223.1.1.0
+ network 200.1.1.0 0.0.0.3
+ network 200.1.1.16 0.0.0.3
+ network 200.1.1.20 0.0.0.3
+ network 200.1.1.36 0.0.0.3
+ no auto-summary
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+
